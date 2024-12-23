@@ -1,6 +1,5 @@
 const express = require("express");
 const { Topic } = require("../models");
-const sequelize = require("../config/database");
 
 const router = express.Router();
 
