@@ -11,7 +11,7 @@ const sequelize = new Sequelize(
         dialect: 'mysql',
         logging: false,
         dialectOptions: {
-            connectTimeout: 10000 // Set timeout for establishing a connection (10 seconds)
+            connectTimeout: 20000 // Set timeout for establishing a connection (10 seconds)
         },
         pool: {
             max: 5,  // Max number of connection in pool
