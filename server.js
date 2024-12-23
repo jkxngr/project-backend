@@ -8,6 +8,9 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.use(cors());
+app.use(bodyParser.json());
 app.use("/api", routes);
 
 console.log("Starting server...");
@@ -18,4 +21,10 @@ sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch(err => {
   console.error("Failed to sync database:", err);
+  console.error("Error details:", {
+    name: err.name,
+    message: err.message,
+    stack: err.stack,
+    parent: err.parent
+  });
 });
