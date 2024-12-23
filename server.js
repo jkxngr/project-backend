@@ -7,12 +7,13 @@ const routes = require("./routes");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3306;
+
+app.use(cors());
+app.use(bodyParser.json());
 app.use("/api", routes);
 
 sequelize.sync({ force: false }).then(() => {
   console.log("Database synced.");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}).catch(err => {
-  console.error("Failed to sync database:", err);
 });
