@@ -5,10 +5,8 @@ const sequelize = require("../config/database");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const topics = await sequelize.query("SELECT `topic_id`, `name` FROM `topics` AS `Topic`;", { type: sequelize.QueryTypes.SELECT });
+  const topics = await Topic.findAll();
   res.json(topics);
 });
-
-
 
 module.exports = router;

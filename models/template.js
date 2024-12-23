@@ -140,9 +140,9 @@ const Template = sequelize.define(
     },
   },
   {
-    timestamps: true,
     tableName: "templates",
     freezeTableName: true,
+    timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
   }

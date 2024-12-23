@@ -18,6 +18,7 @@ const Topic = sequelize.define(
   {
     tableName: "topics", 
     freezeTableName: true,   
+    timestamps: false,
   }
 );
 
