@@ -13,7 +13,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/api", routes);
 
+console.log("Starting server...");
+console.log("Environment variables:", process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_HOST);
+
 sequelize.sync({ force: false }).then(() => {
   console.log("Database synced.");
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}).catch(err => {
+  console.error("Failed to sync database:", err);
 });
