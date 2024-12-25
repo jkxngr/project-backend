@@ -1,5 +1,6 @@
 const express = require("express");
 const { Template } = require("../models");
+const { authenticate, authorize } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -7,7 +8,7 @@ router.get("/", async (req, res) => {
   res.json(templates);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticate, authorize(["admin", "user"]), async (req, res) => {
   const template = await Template.create(req.body);
   res.status(201).json(template);
 });
