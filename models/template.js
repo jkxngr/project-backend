@@ -17,6 +17,10 @@ const Template = sequelize.define(
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "users",  
+        key: "user_id",  
+      },
     },
     topic_id: {
       type: DataTypes.INTEGER,
