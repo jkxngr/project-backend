@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.use(authenticate, authorize(["admin"]));
 
-router.get("/users", async (req, res) => {
+router.get("/", async (req, res) => {
   const users = await User.findAll();
   res.json(users);
 });
 
-router.patch("/users/:id/block", async (req, res) => {
+router.patch("/:id/block", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
     user.update({ blocked: true });
@@ -21,7 +21,7 @@ router.patch("/users/:id/block", async (req, res) => {
   }
 });
 
-router.patch("/users/:id/unblock", async (req, res) => {
+router.patch("/:id/unblock", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
     user.update({ blocked: false });
@@ -31,7 +31,7 @@ router.patch("/users/:id/unblock", async (req, res) => {
   }
 });
 
-router.patch("/users/:id/admin", async (req, res) => {
+router.patch("/:id/admin", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
     user.update({ role: "admin" });
