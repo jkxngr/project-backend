@@ -11,21 +11,22 @@ router.get("/", async (req, res) => {
   res.json(users);
 });
 
-router.patch("/:id/block", async (req, res) => {
+router.patch("/:id", async (req, res) => {
+  const { name, surname, email } = req.body;
   const user = await User.findByPk(req.params.id);
   if (user) {
-    user.update({ blocked: true });
-    res.json({ message: "User blocked" });
+    await user.update({ name, surname, email });
+    res.json({ message: "User updated", user });
   } else {
     res.status(404).json({ error: "User not found" });
   }
 });
 
-router.patch("/:id/unblock", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
-    user.update({ blocked: false });
-    res.json({ message: "User unblocked" });
+    await user.destroy();
+    res.json({ message: "User deleted" });
   } else {
     res.status(404).json({ error: "User not found" });
   }
@@ -34,18 +35,8 @@ router.patch("/:id/unblock", async (req, res) => {
 router.patch("/:id/admin", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
-    user.update({ role: "admin" });
-    res.json({ message: "User promoted to admin" });
-  } else {
-    res.status(404).json({ error: "User not found" });
-  }
-});
-
-router.patch("/:id/remove-admin", async (req, res) => {
-  const user = await User.findByPk(req.params.id);
-  if (user) {
-    user.update({ role: "user" });
-    res.json({ message: "Admin rights removed" });
+    await user.update({ role: "admin" });
+    res.json({ message: "User promoted to admin", user });
   } else {
     res.status(404).json({ error: "User not found" });
   }
