@@ -41,7 +41,7 @@ router.patch("/:id/admin", async (req, res) => {
   }
 });
 
-router.patch("/users/:id/remove-admin", async (req, res) => {
+router.patch("/:id/remove-admin", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
     user.update({ role: "user" });
