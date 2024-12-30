@@ -10,6 +10,14 @@ router.get("/", async (req, res) => {
   const users = await User.findAll();
   res.json(users);
 });
+router.get("/:id", async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ error: "User not found" });
+  }
+});
 router.get("/:id/status", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
@@ -21,7 +29,9 @@ router.get("/:id/status", async (req, res) => {
 router.get("/:id/templates", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
-    const templates = await Template.findAll({ where: { user_id: req.params.id } });
+    const templates = await Template.findAll({
+      where: { user_id: req.params.id },
+    });
     res.json(templates);
   } else {
     res.status(404).json({ error: "User not found" });
