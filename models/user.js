@@ -32,9 +32,9 @@ const User = sequelize.define(
       type: DataTypes.ENUM("user", "admin"),
       defaultValue: "user",
     },
-    blocked: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    status: {
+      type: DataTypes.ENUM("active", "blocked"),
+      defaultValue: "active",
     },
   },
   {

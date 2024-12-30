@@ -10,6 +10,24 @@ router.get("/", async (req, res) => {
   const users = await User.findAll();
   res.json(users);
 });
+router.get("/:id/status", async (req, res) => {
+  const user = await User.findByPk(req.params.id);
+  if (user) {
+    res.json({ status: user.status });
+  } else {
+    res.status(404).json({ error: "User not found" });
+  }
+});
+router.patch("/:id", async (req, res) => {
+  const { name, surname, email } = req.body;
+  const user = await User.findByPk(req.params.id);
+  if (user) {
+    await user.update({ name, surname, email });
+    res.json({ message: "User updated", user });
+  } else {
+    res.status(404).json({ error: "User not found" });
+  }
+});
 
 router.delete("/:id", async (req, res) => {
   const user = await User.findByPk(req.params.id);
@@ -24,7 +42,7 @@ router.delete("/:id", async (req, res) => {
 router.patch("/:id/block", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
-    await user.update({ blocked: true });
+    await user.update({ status: "blocked" });
     res.json({ message: "User blocked", user });
   } else {
     res.status(404).json({ error: "User not found" });
@@ -34,7 +52,7 @@ router.patch("/:id/block", async (req, res) => {
 router.patch("/:id/unblock", async (req, res) => {
   const user = await User.findByPk(req.params.id);
   if (user) {
-    await user.update({ blocked: false });
+    await user.update({ status: "active" });
     res.json({ message: "User unblocked", user });
   } else {
     res.status(404).json({ error: "User not found" });
