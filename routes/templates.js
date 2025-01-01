@@ -1,10 +1,15 @@
 const express = require("express");
-const { Template } = require("../models");
+const { Template, User } = require("../models");
 const { authenticate, authorize } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const templates = await Template.findAll();
+  const templates = await Template.findAll({
+    include: {
+      model: User,
+      attributes: ["name", "surname"],
+    },
+  });
   res.json(templates);
 });
 
