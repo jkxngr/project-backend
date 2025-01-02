@@ -44,7 +44,17 @@ router.post(
   }
 );
 router.get("/:id", async (req, res) => {
-  const template = await Template.findByPk(req.params.id);
+  const template = await Template.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        attributes: ["name", "surname"],
+      },
+      {
+        model: CheckboxOption,
+      },
+    ],
+  });
   if (template) res.json(template);
   else res.status(404).json({ error: "Template not found" });
 });

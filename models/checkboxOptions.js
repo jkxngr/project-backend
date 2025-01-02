@@ -4,6 +4,12 @@ const sequelize = require("../config/database");
 const CheckboxOption = sequelize.define(
   "CheckboxOption",
   {
+    option_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
     template_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -13,7 +19,7 @@ const CheckboxOption = sequelize.define(
       },
     },
     question_key: {
-      type: DataTypes.STRING, 
+      type: DataTypes.STRING,
       allowNull: false,
     },
     option_text: {
@@ -24,9 +30,7 @@ const CheckboxOption = sequelize.define(
   {
     tableName: "checkbox_options",
     freezeTableName: true,
-    timestamps: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
+    timestamps: false,
   }
 );
 
