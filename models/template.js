@@ -142,6 +142,10 @@ const Template = sequelize.define(
     custom_checkbox4_question: {
       type: DataTypes.STRING,
     },
+    likes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   },
   {
     tableName: "templates",

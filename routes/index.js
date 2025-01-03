@@ -4,7 +4,7 @@ const formsRoutes = require("./forms");
 const topicsRoutes = require("./topics");
 const authRoutes = require("./auth");
 const userRoutes = require("./users");
-
+const likesRoutes = require("./likes");
 const router = express.Router();
 router.use("/templates", templatesRoutes);
 router.use("/forms", formsRoutes);
