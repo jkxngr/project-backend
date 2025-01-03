@@ -11,5 +11,6 @@ router.use("/forms", formsRoutes);
 router.use("/topics", topicsRoutes);
 router.use("/auth", authRoutes);
 router.use("/users", userRoutes);
+router.use("/likes", likesRoutes);
 
 module.exports = router;
