@@ -47,27 +47,5 @@ router.put(
     }
   }
 );
-router.post("/:id/like", async (req, res) => {
-  try {
-    const templateId = req.params.id;
-    const userId = req.body.userId;
-    const existingLike = await Like.findOne({ where: { userId, templateId } });
 
-    if (existingLike) {
-      return res
-        .status(400)
-        .json({ error: "User has already liked this template" });
-    }
-    await Like.create({ userId, templateId });
-    const template = await Template.findByPk(templateId);
-    template.likes += 1;
-    await template.save();
-
-    res.status(200).json({ message: "Template liked successfully" });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ error: "An error occurred while liking the template" });
-  }
-});
 module.exports = router;
